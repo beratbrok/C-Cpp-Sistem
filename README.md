@@ -1,2 +1,2 @@
-# c-
+# c++
 programlamaya giriş ve algoritmalar
