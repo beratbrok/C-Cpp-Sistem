@@ -1,5 +1,5 @@
-// 2 sayının toplanması
-// girilen 2 sayının 4 işlem formu.
+// 2 sayÄ±nÄ±n toplanmasÄ±
+// girilen 2 sayÄ±nÄ±n 4 iÅŸlem formu.
 #include<iostream>
 using namespace std;
 int main(){
@@ -16,8 +16,8 @@ int main(){
 	 
 	cin>>sayi3;
 	
-	cout<<endl<<"Sayi 2:" ;						// \n ifadesi ile endl ifadesi satır sonu olduğunu
-												// imlecin 1 satır alttan devam edeceğini gosterir.
+	cout<<endl<<"Sayi 2:" ;						// \n ifadesi ile endl ifadesi satÄ±r sonu olduÄŸunu
+												// imlecin 1 satÄ±r alttan devam edeceÄŸini gosterir.
 	cin>>sayi4;
 	
 	cout<<"\nToplam :"<<sayi3+sayi4<<endl;
@@ -25,7 +25,7 @@ int main(){
 	cout<<"Carpim :"<<sayi3*sayi4<<endl;
 	cout<<"Bolum :"<<sayi3/sayi4<<endl;
 	
-	// bolmede dikkat edilecek husus tip donusumleridir ! bu konuya ileride değineceğiz.
+	// bolmede dikkat edilecek husus tip donusumleridir ! bu konuya ileride deÄŸineceÄŸiz.
 	
 	
 }
