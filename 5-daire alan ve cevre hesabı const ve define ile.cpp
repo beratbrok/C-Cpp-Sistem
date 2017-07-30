@@ -3,7 +3,7 @@ using namespace std;
 
 #define pi 3.14
 
-int main() {		// Dairenin cevresi ve alan hesabı
+int main() {		// Dairenin cevresi ve alan hesabÃ½
 	const float yaricap = 5;
 
 	cout << "Alan :" << pi*yaricap*yaricap << endl;
@@ -11,5 +11,5 @@ int main() {		// Dairenin cevresi ve alan hesabı
 
 	
 	getchar();
-	return 0;
+	return 0 ;
 }
