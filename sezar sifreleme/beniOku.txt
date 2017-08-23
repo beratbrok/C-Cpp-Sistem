@@ -1,0 +1,10 @@
+program sifreleme ve sifre cozme uzerine kuruludur.
+bir metin sifrelendiginde cripto metin.txt adinda bir dosya olusur
+bu dosyanin icerisinde sifreli metine ek olarak "...anahtar" bilgisi 
+eklenir, 
+
+anahtar : sifreleme yaparken karakterlerin kaç sýra kaydirildigi bilgisidir.
+
+metin icerisinden anahtari silerek dosyayi gonderebilirsiniz.
+
+anahtar degeri 0 ile 9 arasindadir.
