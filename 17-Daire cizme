@@ -1,3 +1,4 @@
+// bu kodlar osman yasal tarafından konlanmiştir
 #include<iostream>
 using namespace std;
 int main() {
