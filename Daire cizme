@@ -1,0 +1,22 @@
+#include<iostream>
+using namespace std;
+int main() {
+
+	// cember cizme programi
+
+	int yaricap;
+	cout << "Yaricap :";
+	cin >> yaricap;
+	system("cls");
+
+	for (int i = -yaricap/2; i <= yaricap/2; i++) {
+		for (int j = -yaricap; j <= yaricap; j++) {
+			if (i == 0 && j == 0) cout << "M";
+			else if ((i*i + j*j) <= yaricap)cout << ".";
+			else cout << " ";
+		}
+		cout << endl;
+	}
+
+
+}
