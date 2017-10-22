@@ -1,0 +1,6 @@
+C:\Users\Osman\Desktop\Biçimsel diller ödev -2\Biçimsel diller ödev -2\bin\Debug\Biçimsel diller ödev -2.exe.config
+C:\Users\Osman\Desktop\Biçimsel diller ödev -2\Biçimsel diller ödev -2\bin\Debug\Biçimsel diller ödev -2.exe
+C:\Users\Osman\Desktop\Biçimsel diller ödev -2\Biçimsel diller ödev -2\bin\Debug\Biçimsel diller ödev -2.pdb
+C:\Users\Osman\Desktop\Biçimsel diller ödev -2\Biçimsel diller ödev -2\obj\Debug\Biçimsel diller ödev -2.csprojResolveAssemblyReference.cache
+C:\Users\Osman\Desktop\Biçimsel diller ödev -2\Biçimsel diller ödev -2\obj\Debug\Biçimsel diller ödev -2.exe
+C:\Users\Osman\Desktop\Biçimsel diller ödev -2\Biçimsel diller ödev -2\obj\Debug\Biçimsel diller ödev -2.pdb
