@@ -1,0 +1,93 @@
+ 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+struct bagli_liste{
+    
+    char* kelime;
+    
+    struct bagli_liste* next;
+    
+};
+typedef struct bagli_liste* node;
+node root = NULL;
+
+void split(char* dizi){
+     
+    if(strlen(dizi) == 0) return;
+    
+    else{
+        
+        int iterasyon=1;
+    
+        for(int i=0;i<strlen(dizi);i++){
+            if(dizi[i] ==' ')iterasyon++;
+        } 
+     
+        int sayac = 0;
+          
+        while(iterasyon-- !=0){
+        
+        
+        if(root ==NULL){
+             node dugum = malloc(sizeof(struct bagli_liste));
+        dugum->kelime = malloc(sizeof(char)*20);
+        dugum->next = NULL;
+        
+            int i=0;
+            for(;dizi[i]!=' ';i++){
+                dugum->kelime[i] = dizi[i];
+            }
+            dugum->kelime[i+1] = '\0'; // sonuna null koyuyoruz
+            sayac = i;
+            root = dugum;
+        } 
+        else{
+        node dugum = malloc(sizeof(struct bagli_liste));
+        dugum->kelime = malloc(sizeof(char)*20);
+        dugum->next = NULL;
+        
+            int i=sayac; 
+            if(i == strlen(dizi))return;
+            
+            i+=1; 
+            
+            for(int j=0;dizi[i]!=' ';i++,j++){
+                dugum->kelime[j] = dizi[i];
+            }
+            dugum->kelime[i+1] = '\0'; // sonuna null koyuyoruz
+            sayac = i;
+            
+            node iter = root;
+            while(iter->next !=NULL) iter = iter->next;
+            
+            iter->next = dugum;
+        }
+        }
+        
+    } 
+}
+
+void bastir(node root){
+    while(root!=NULL){
+        printf("%s ",root->kelime);
+        root = root->next;
+    }
+}
+
+int main(int argc, char** argv) {
+
+    
+    split("merhaba ben osman yasal");
+    bastir(root);
+    
+    
+    
+    
+    
+    
+    return (EXIT_SUCCESS);
+}
+
