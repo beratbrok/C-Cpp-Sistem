@@ -1,0 +1,119 @@
+ 
+#include <stdio.h>
+#include <stdlib.h>
+#include<string.h>
+#include<unistd.h>
+ 
+void giris_bekle();
+
+char* satir_oku();
+
+char** okunan_degeri_parcala();
+   
+
+void calistir(char**);
+
+int main(int argc, char** argv) {
+
+     
+    while(1){ 
+    
+    giris_bekle();
+    
+    }
+     
+    return (EXIT_SUCCESS);
+}
+
+void giris_bekle(){
+    
+    
+    char* satir;
+     
+    printf(">");
+    
+    satir = satir_oku();
+    
+    char** kelimeler = okunan_degeri_parcala(satir);
+    
+    calistir(kelimeler);
+     
+}
+
+char* satir_oku(){
+    
+    int index = 0;
+    
+    const int metin_uzunlugu = 500;
+     
+    char* metin = malloc(sizeof(char)*metin_uzunlugu);
+    
+    int ch;
+    
+    while(1){ 
+        
+        ch = getchar(); 
+        
+        if(ch == '\n'){ metin[index] = '\0'; return metin;} 
+        
+        else metin[index++] = ch;
+    }
+    
+}
+
+char** okunan_degeri_parcala(char* satir){
+ 
+    
+    int kelime_adedi = 0;
+
+    char* pch;
+    
+    char** kelimeler = malloc(sizeof(char*) * 20);
+    
+    pch = strtok(satir," ");
+    
+    while(pch !=NULL){
+        
+        kelimeler[kelime_adedi++] = pch;
+        
+        pch = strtok(NULL," ");
+        
+    }
+    kelimeler[kelime_adedi] = NULL;
+    
+    return kelimeler;
+    
+}
+
+void calistir(char** komut){
+   
+ 
+ 
+/*
+
+    int i = 0;
+ 
+    do{
+        printf("%s\n",komut[i]);
+    }while(komut[i++]!=NULL);
+    
+ 
+*/
+  
+    int pid = fork();
+    
+    if(pid == 0){
+        // child proses
+      int i =   execvp(komut[0],komut);
+      
+      if( i == -1) perror("hata");
+    }
+    if(pid > 0){
+        // perent proses
+        wait(pid);
+        
+    }
+ 
+      
+    
+}
