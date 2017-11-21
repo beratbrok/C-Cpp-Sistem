@@ -1,31 +1,33 @@
- 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include<string.h>
 #include<unistd.h>
- 
-void giris_bekle();
+#include <sys/wait.h>
+int giris_bekle();
 
 char* satir_oku();
 
 char** okunan_degeri_parcala();
    
 
-void calistir(char**);
+int calistir(char**);
 
 int main(int argc, char** argv) {
 
      
     while(1){ 
     
-    giris_bekle();
+   int contin =  giris_bekle();
+    
+   if(contin == 0) break;
     
     }
-     
+    printf("Terminal sonlandirildi ...:true");
     return (EXIT_SUCCESS);
 }
 
-void giris_bekle(){
+int giris_bekle(){
     
     
     char* satir;
@@ -36,8 +38,9 @@ void giris_bekle(){
     
     char** kelimeler = okunan_degeri_parcala(satir);
     
-    calistir(kelimeler);
+    int cont = calistir(kelimeler);
      
+    return cont;
 }
 
 char* satir_oku(){
@@ -85,7 +88,7 @@ char** okunan_degeri_parcala(char* satir){
     
 }
 
-void calistir(char** komut){
+int calistir(char** komut){
    
  
  
@@ -99,21 +102,32 @@ void calistir(char** komut){
     
  
 */
-  
-    int pid = fork();
-    
-    if(pid == 0){
-        // child proses
-      int i =   execvp(komut[0],komut);
-      
-      if( i == -1) perror("hata");
-    }
-    if(pid > 0){
-        // perent proses
-        wait(pid);
+    if(!strcmp(komut[0],"quit")){       // quit gelirse , proseslerin sonuclanmasini bekle ven sonlan..
         
+        wait(NULL) ;
+        
+        return 0;
     }
+            
+    else{
+        
+        int pid = fork();
+
+        if(pid == 0){
+            // child proses
  
-      
-    
+            int i =   execvp(komut[0],komut);
+
+            if( i == -1) perror("hata");
+ 
+        }
+        if(pid > 0){
+            // perent proses
+            
+            wait(NULL);
+
+        }
+
+         return 1; 
+    }
 }
