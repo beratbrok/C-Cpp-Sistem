@@ -1,0 +1,98 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
+/* 
+ikili proses agaci olusturulacak
+yapraklar bir dosyaya rastgele sayi yazacaklar
+yapraklari olusturan prosesler , kendi olusturdugu cocukların rastgele olusturduklari sayilari toplayacak
+ve kendi dosyasina yazacaktir.
+
+*/
+
+void yaprak(){
+    char dosya_ad[20];
+    
+    sprintf(dosya_ad,"%d.txt",getpid());
+    
+    FILE* fp = fopen(dosya_ad,"w"); 
+    
+    srand(getpid());
+    
+    int random = rand()%100;
+    
+    fprintf(fp,"%d",random);
+    
+    fclose(fp);
+}
+void ana(int pid1,int pid2){
+    wait(NULL);
+    int total , c1 , c2;
+    
+    char dosya_ad[20];
+    sprintf(dosya_ad,"%d.txt",getpid());
+    
+    char cocuk1[20], cocuk2[20];
+    
+    sprintf(cocuk1,"%d.txt",pid1);
+    sprintf(cocuk2,"%d.txt",pid2);
+    
+    FILE* fp = fopen(dosya_ad,"w");
+    
+    FILE* fp1 = fopen(cocuk1,"r");
+    FILE* fp2 = fopen(cocuk2,"r");
+    
+    fscanf(fp1,"%d",&c1);
+    fscanf(fp2,"%d",&c2);
+    
+    total = c1 + c2;
+    
+    fprintf(fp,"%d",total);
+    
+    fclose(fp);
+    fclose(fp1);
+    fclose(fp2);
+    
+}
+void agac(int katman){
+    
+    if(katman == 0){    // yapraklara geldik
+      
+        yaprak();
+        
+        return ;
+    }
+    
+    int pid1 = fork();   // ana proses den cocuk proses olusturuldu.
+    
+    if(pid1 == 0){ // sol cocuk
+            
+        agac(katman-1);
+    }
+    else if(pid1 > 0 ){  
+        
+        int pid2 = fork(); 
+        
+        if(pid2 > 0){   // ana proses
+            printf("\tAna proses :%d\ncocuk1 :%d \t\tcocuk2 :%d\n",getpid(),pid1,pid2);
+            wait(NULL);
+            ana(pid1,pid2);
+        }
+        else if(pid2 == 0 ){ // sag cocuk 
+            agac(katman-1);
+        }
+    }
+    
+}
+
+
+int main(void) {
+     
+    
+    agac(2);
+    
+    
+    
+    
+    return (EXIT_SUCCESS);
+} 
