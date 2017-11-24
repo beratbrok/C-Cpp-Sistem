@@ -26,6 +26,10 @@ int kelimeBoyutu;
 
 char* satir;
 
+int* cocuk_prosesler;
+
+int cocuk_proses_index = 0;
+
 //########################################################################################################################################
 
 
@@ -38,7 +42,8 @@ char* satir;
 //########################################################################################################################################
 
 int main(int argc, char** argv) {
- 
+    
+    cocuk_prosesler = (int*)malloc(sizeof(int)*30);
 
     int contin = 1;
     
@@ -48,6 +53,12 @@ int main(int argc, char** argv) {
  
     
     }while(contin != 0);
+    
+    wait(NULL); // tum cocuk proseslerin tamamlanmasi bekleniyor
+    
+    for(int i = 0 ;i < cocuk_proses_index ; i++){   // her ihtimale karsi kapanmamis cocuk proses var ise kill ediliyor.
+        kill(cocuk_prosesler[i],9);
+    }
     
     printf("Terminal sonlandirildi ...:true");
  
@@ -257,7 +268,7 @@ int calistir(char** komut){
     else{
         
         int pid = fork();
-
+        cocuk_prosesler[cocuk_proses_index++] = pid; 
         if(pid == 0){
             // child proses
             
@@ -418,6 +429,7 @@ int dosya_yaz(char** komut, char* satir){
 
 	kelimeler[boyut] = NULL;
 	
+        if(!strcmp(komut[0],"echo")){
 	 
 	    int fileDesc = open(komut[kelimeBoyutu-1],O_RDWR|O_CREAT|O_APPEND,0600); 
             if(fileDesc<0) printf("hata");
@@ -426,6 +438,16 @@ int dosya_yaz(char** komut, char* satir){
        
             close(fileDesc);
 	return 1;
+        }
+         
+        else{       // bu durumda komut isletilip yonlendirilmelidir.
+            
+            int fileDesc = open(komut[kelimeBoyutu-1],O_RDWR|O_CREAT|O_APPEND,0600);
+            if(fileDesc < 0 ) printf("hata..");
+            
+            if(dup2(fileDesc,1) < 0);
+            execvp(komut[0],kelimeler);
+        }
 }
 
 //########################################################################################################################################
