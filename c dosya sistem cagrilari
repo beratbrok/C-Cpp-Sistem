@@ -68,3 +68,45 @@ yukarıdaki örneklerde bir i değişkeni integer tipinde tanımlanmıştır. Bu
 fprintf fonksiyonu da ilave bir dosya göstericisi almak dışında standart printf fonksiyonundan farklı değildir.
 
 Hatırlanması gereken önemli bir nokta, fscanf fonksiyonunun kullanılması için dosyanın okuma, fprintf fonksiyonunun kullanılabilmesi için ise dosyanın yazma şeklinde açılması gerekmektedir.
+
+
+// basit bir uygulama
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <fcntl.h>
+int main()
+{ 
+    
+    int fd1 , hata;
+    char veri[33];
+    
+    fd1 = open("/home/osman/Masaüstü/deneme.txt", O_WRONLY | O_APPEND | O_CREAT);
+    
+    /*Dosyaya yaz*/
+  
+    hata = write(fd1,"Merhaba ben osman \nBu bir denemedir",35);
+    
+    if(hata == -1)
+        printf("Hata var \n");
+    close(fd1);
+    
+    
+    fd1 = open("/home/osman/Masaüstü/deneme.txt", O_RDONLY | O_APPEND | O_CREAT);
+    
+    hata = read(fd1,veri,40);
+    
+    if(hata == -1)
+        printf("Hata var -2");
+    
+    close(fd1);
+    
+    printf("Okunan :%s\n",veri);
+    
+    
+    return 0;
+}
+
+
+
