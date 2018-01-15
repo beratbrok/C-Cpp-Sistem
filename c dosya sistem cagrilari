@@ -1,0 +1,70 @@
+C dilinde dosya işlemleri için file.h dosyasının içerilmesi (include) gerekir.
+
+#include <file.h>
+
+Yukarıda gösterildiği şekilde içerilir.
+
+Dosya Açma
+
+Dosya açmak için fopen fonksiyonu kullanılır. Basitçe dosyanın adını ve açma şeklini alan bu fonksiyon geri değer olarak integer döndürür ve açmanın başarılı olup olmadığı anlaşılabilir.
+
+if(fopen(“deneme.txt”,”r”)){
+
+printf(“dosya açıldı”);
+
+}else{
+
+printf(“dosya açılamadı”);
+
+}
+
+yukarıdaki örnek kodda fopen fonksiyonuna parametre olarak “deneme.txt” dosyası verilmiştir. Bunun anlamı programımız ile aynı dizinde bulunan deneme.txt dosyasının açılmasıdır. Şayet farklı bir dizinden okunması isteniyorsa tam yol verilebilir. Örneğin:
+
+c:denemedeneme.txt –> C sürücüsundeki deneme dizinin altındaki deneme.txt (WINDOWS)
+
+/usr/bin/deneme.txt –> root dizin / altındaki usr altındaki bin altındaki deneme.txt dosyası (LINUX)
+
+..dosyalardeneme.txt –> programımızın bulunduğu dizinin bir altında bulunan dosyalar dizinin altındaki deneme.txt dosyası (WINDOWS)
+
+şeklinde kullanılabilir. Hemen ardından fopen fonksiyonuna verilen ikinci parametre ise dosyanın açılma şeklini belirtir. Bu şekiller:
+
+r or rb
+    Dosyayı okuma (read) için açar. 
+w or wb
+    Dosyayı yazma(write) için açar ve şayet dosya zaten varsa içindekileri temizleyerek yoksa yeni bir dosya oluşturur. 
+a or ab
+    Dosyaya ilave (Append) için açar. Bunun anlamaı dosya yoksa oluşturulacak varsa mevcut bilgilerin sonuna yazılacak demektir. 
+r+ or rb+ or r+b
+    Mevcut Dosyayı hem okumak hemde yazmak için açar. 
+w+ or wb+ or w+b
+    Dosyayı bir önceki şekilde olduğu gibi hem okumak hem de yazmak için açar. Ancak dosya yoksa oluşturur, dosya varsa içindekileri siler. 
+a+ or ab+ or a+b
+    Dosyayı ilave şeklinde açar ve şayet dosya yoksa oluşturur, varsa içindekilerin sonuna ilave eder. Bu şekilde açılan dosyalardan hem okuma hemde yazma işlemi yapılabilir. 
+
+Yukarıdaki şekillerin “b” sembolü alanları binary mod anlamındadır.
+
+Yukarıdaki bu şekillerden birisi tercih edilerek ilgili sembol fopen’a ikinci parametre olarak verilir. Yukarıdaki örnek kodda da görüldüğü üzere fopen fonksiyonu bir if içerisindedir. Bunun anlamı fopen fonksiyonundan başarılı sonuç dönerse dosyanın açıldığı anlaşılacaktır. Aksi halde dosyanın açılması başarısızlıkla sonuçlanmıştır ve programımızda bu durum için basit bir hata mesajı ekrana basılır.
+
+Dosyadan okuma ve yazma
+
+Dosya açıldıktan sonra dosyaya okuma ve yazma işlemleri yapılabilir. Okuma ve yazma işlemlerinin yapılabilmesi için yukarıda anlatılan dosya açma işlemine ilave olarakaçılan dosyayı gösteren bir göstericiye (pointer) ihtiyaç duyulmaktadır. Bu gösterici fopen fonksiyonu tarafından döndürülmektedir. Kod örneği aşağıdadır:
+
+FILE *fp;
+
+fp = fopen(“dosya.txt”,”r”);
+
+yukarıdaki örnek kodun ilk satırında fp isminde bir dosya göstericisi tanımlanmıştır. İkinci satırında ise bu göstericinin içerisine fopen fonksiyonundan dönen değer atanmıştır. Buna göre dosyaya erişilmesi istendiğinde fp göstericisi üzerinden işlem yapılması yeterlidir.
+
+Dosyalardan okuma ve yazma yapan çok sayıda fonksiyon olmasına karşılık anlaşılması en kolay fonksiyonlar C dili ilk öğrenilirken öğrenilen scanf ve printf fonksiyonlarının birer türevi olan fscanf ve fprintf fonksiyonlarıdır. Birer örnek aşağıda verilmiştir:
+
+int i;
+
+fscanf(fp,”%d”,&i);
+
+fprintf(fp,”%d”,i);
+
+yukarıdaki örneklerde bir i değişkeni integer tipinde tanımlanmıştır. Bu değişkene ikinci satırda fscanf fonksiyonu ile bir değer dosyadan okunmuştur. Bu fonksiyon ilk bakışta da anlaşılacağı üzere scanf fonksiyonundan farklı olarak ilave bir dosya göstericisi parametresi kullanmaktadır. Bu parametre fonksiyonun ilk parametresidir. Yukarıdaki örnekte bulunan “fp” dosya göstericisi de böyle bir dosya gösterici örneğidir.
+
+fprintf fonksiyonu da ilave bir dosya göstericisi almak dışında standart printf fonksiyonundan farklı değildir.
+
+Hatırlanması gereken önemli bir nokta, fscanf fonksiyonunun kullanılması için dosyanın okuma, fprintf fonksiyonunun kullanılabilmesi için ise dosyanın yazma şeklinde açılması gerekmektedir.
