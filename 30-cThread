@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <pthread.h>
+#include <sys/syscall.h>
+
+void t1()
+{
+   
+    while(1)
+        printf("Thread 1 \n");
+	
+}
+void t2()
+{
+   
+    while(1)
+        printf("Thread 2 \n");
+	
+}
+
+int main()
+{
+	pthread_t iplik1 , iplik2;
+        
+	int iplikNo1,iplikNo2;
+
+	iplikNo1 = pthread_create(&iplik1, NULL, t1, NULL);
+        iplikNo2 = pthread_create(&iplik2,NULL,t2,NULL);
+	pthread_exit(&iplik1);
+        pthread_exit(&iplik2);
+        
+        return 0;
+}
