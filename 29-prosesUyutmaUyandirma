@@ -1,0 +1,35 @@
+ 
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <signal.h> 
+
+int main(int argc, char** argv) {
+
+    
+    // Cocuk prosesi askiya alan program
+    
+    int pid = fork();
+    
+    if(!pid){   // Cocuk proses
+        
+        while(1){
+            printf("Ben cocuk proses \n");
+        }
+        
+    }
+    else{   // Anne proses
+        
+        kill(pid,SIGSTOP);  // prosesi uyut
+        printf("Ben anne proses\n");
+        printf("Proses uyudu...\n");
+        kill(pid,SIGCONT);  // prosesi canlandir
+        printf("Proses uyandi");
+    }
+    
+    
+    
+    return (EXIT_SUCCESS);
+}
+
