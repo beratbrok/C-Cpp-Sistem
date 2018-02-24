@@ -1,0 +1,55 @@
+ 
+/*
+ikili arama algoritmasında hangi 2 aralikta sayi tuttugumuzu bilgisaraya giriyoruz
+Bilgisayar tuttuğumuz sayiyi tahmin etmeye calisiyor.
+* biz ona yukari asagi veya tamam diyoruz
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char** argv) {
+
+	int altAralik, ustAralik;
+	int tahmin = 0;
+	int dogrumu = 0;
+	int diziBoyut;
+	int nereye;
+
+	printf("Alt Aralik :");
+	scanf("%d", &altAralik);
+
+	printf("Ust Aralik :");
+	scanf("%d", &ustAralik);
+
+	int* dizi = (int*)malloc(sizeof(int)*(ustAralik-altAralik+1));
+	 
+	int index = 0;
+
+	for (int i = altAralik; i< ustAralik - altAralik + 1; i++) {
+		dizi[index++] = i; 
+	}
+
+	while (dogrumu == 0) {
+
+		tahmin = dizi[(ustAralik + altAralik) / 2];
+		printf("Tahmin...:%d Dogru mu ? :", tahmin);
+		scanf("%d", &dogrumu);
+
+		if (dogrumu == 1) break;
+		else {
+			printf("yukari icin 8 asagi icin 2 ye bas..\n");
+
+			scanf("%d", &nereye);
+
+			if (nereye == 2)
+				ustAralik = (ustAralik + altAralik) / 2;
+			else
+				altAralik = (ustAralik + altAralik) / 2;
+		}
+	}
+
+
+	return 0;
+}
+
