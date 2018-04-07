@@ -52,6 +52,6 @@ int main()
   printf("dizin ...:");
   gets(katar);
   printf("boyut :%d\n", get_size(katar));
-
+  free(katar);
 return 0;
 }
