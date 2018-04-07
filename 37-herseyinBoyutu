@@ -1,0 +1,57 @@
+/*created by Root. 7 april 2018 */
+// size of all file's
+#include <stdio.h>
+#include <dirent.h>
+#include <sys/stat.h>
+#include <string.h>
+#include <stdlib.h>
+
+#define RED   "\x1B[31m"
+#define RESET "\x1B[0m"
+int get_size(char *fn)
+{
+	  DIR *d;
+	  struct dirent *de;
+	  struct stat buf;
+	  int exists;
+	  double total_size;
+	  char* s;
+	  //printf("\t\tFN DEGERİ :%s\n",fn);
+	  d = opendir(fn);
+	  if (d == NULL) {
+	    perror("prsize");
+	    exit(1);
+	  }
+	  s = (char *) malloc(sizeof(char)*(strlen(fn)+258));
+	  total_size = 0;
+
+	  for (de = readdir(d); de != NULL; de = readdir(d)) {
+	   /* Look for fn/de->d_name */
+    		sprintf(s, "%s/%s", fn, de->d_name);
+		//printf("\t\ts degeri : %s\n",s);
+ 	   	exists = stat(s, &buf);
+	    	if (exists < 0) {
+	    		 fprintf(stderr, "Couldn't stat %s\n", s);
+	   	 } 
+		else {
+	     		 total_size += buf.st_size;
+			 printf("dosya boyutu :%d\tadi:%s\n",buf.st_size,s);
+	  	  }
+	        if (S_ISDIR(buf.st_mode) && strcmp(de->d_name,".")!= 0 && strcmp(de->d_name,"..")!=0) {
+			 printf(RED "Making recursive call on directory %s\n" RESET, s);
+	     		 total_size += get_size(s);
+	   	 }
+	  }
+	  closedir(d);
+	  return total_size;
+}
+
+int main()
+{
+  char* katar = malloc(sizeof(char)*1000);
+  printf("dizin ...:");
+  gets(katar);
+  printf("boyut :%d\n", get_size(katar));
+
+return 0;
+}
